@@ -1,0 +1,46 @@
+<ion-toolbar>
+  <ion-segment value="all" *ngIf="!showSearch">
+    <ion-segment-button value="todo" (click)="showTodo()"
+      >To do</ion-segment-button
+    >
+    <ion-segment-button value="done" (click)="showDone()"
+      >Done</ion-segment-button
+    >
+    <ion-segment-button value="all" (click)="showAll()">All</ion-segment-button>
+  </ion-segment>
+
+  <ion-buttons slot="start" *ngIf="showSearch">
+    <ion-button (click)="showSearch = false">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-searchbar *ngIf="showSearch" [formControl]="searchTerms"></ion-searchbar>
+  <ion-buttons slot="end">
+    <ion-button (click)="showSearch = true" *ngIf="!showSearch">
+      <ion-icon slot="icon-only" icon="search"></ion-icon>
+    </ion-button>
+    <ion-button>
+      <ion-icon
+        slot="icon-only"
+        ios="ellipsis-vertical"
+        md="ellipsis-vertical"
+      ></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-list>
+  <ion-item *ngFor="let item of selectedItems">
+    <ion-label>
+      <h3 [class.strikethrough]="item.done">{{ item.title }}</h3>
+      <p>{{ item.deadline | date }}</p>
+      <p *ngIf="item.priority">Priority {{ item.priority }}</p>
+    </ion-label>
+    <ion-checkbox slot="start" [(ngModel)]="item.done"></ion-checkbox>
+  </ion-item>
+</ion-list>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 64px;">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
