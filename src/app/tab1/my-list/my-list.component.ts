@@ -20,11 +20,11 @@ export class MyListComponent implements OnInit {
   }
 
   showTodo(): void {
-    this.selectedItems = [];
+    this.selectedItems = this.selectedItems.filter((el) => el.done === false);
   }
 
   showDone(): void {
-    this.selectedItems = [];
+    this.selectedItems = this.selectedItems.filter((el) => el.done === true);
   }
 
   showAll(): void {
@@ -32,6 +32,8 @@ export class MyListComponent implements OnInit {
   }
 
   search(searchTerms: string): void {
-    this.selectedItems = [];
+    this.selectedItems = this.selectedItems.filter((el) =>
+      el.title.toLowerCase().includes(searchTerms.toLowerCase())
+    );
   }
 }
